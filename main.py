@@ -22,6 +22,10 @@ num_filters1 = 16         # There are 16 of these filters.
 filter_size2 = 3          # Convolution filters are 3 x 3 pixels.
 num_filters2 = 36         # There are 36 of these filters.
 
+# Convolutional Layer 3.
+filter_size3 = 3          # Convolution filters are 3 x 3 pixels.
+num_filters3 = 64         # There are 36 of these filters.
+
 # Fully-connected layer.
 fc_size = 128             # Number of neurons in fully-connected layer.
 
@@ -50,21 +54,29 @@ x_image = tf.reshape(x, [-1, img_size, img_size, num_channels])
 y_true = tf.placeholder(tf.float32, shape=[None, num_classes], name='y_true')
 y_true_cls = tf.argmax(y_true, axis=1)
 
-
+#conv layer 1
 layer_conv1, weights_conv1 =  new_conv_layer(input = x_image,
                                              num_input_channels=num_channels,
                                              filter_size = filter_size1,
                                              num_filters= num_filters1,
                                              use_pooling=True)
 
-
+#conv layer 2
 layer_conv2, weights_conv2 = new_conv_layer(input=layer_conv1,
                    num_input_channels=num_filters1,
                    filter_size=filter_size2,
                    num_filters=num_filters2,
                    use_pooling=True)
 
-layer_flat, num_features = flatten_layer(layer_conv2)
+#conv layer 3
+layer_conv3, weights_conv3 = new_conv_layer(input=layer_conv1,
+                   num_input_channels=num_filters2,
+                   filter_size=filter_size3,
+                   num_filters=num_filters3,
+                   use_pooling=True)
+
+#feed to flatning layers
+layer_flat, num_features = flatten_layer(layer_conv3)
 
 layer_fc1 = new_fc_layer(input=layer_flat,
                          num_inputs=num_features,
