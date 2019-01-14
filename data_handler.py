@@ -21,6 +21,8 @@ class Data():
         # separates all data into train(x,y) and test(x,y) sets
         index = 0
         for image_name,label in self.dict.items():
+            if (index == self.num_train() + self.num_test()):
+                break
             path = 'resized/' + image_name
 
             if(index < self.num_train()):
@@ -61,12 +63,13 @@ class Data():
 
     def num_train(self):
         # first 90% is training
-        return round(self.total_images * 0.9)
+        #return round(self.total_images * 0.9)
+        return 1000
 
     def num_test(self):
         #last 10% is test.
-        return round(self.total_images * 0.1)
-
+        #return round(self.total_images * 0.1)
+        return 100
 
 #
 # a = Data(41904)
