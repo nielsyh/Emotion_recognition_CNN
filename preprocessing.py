@@ -8,8 +8,6 @@ import gc
 # Open the labels file
 #
 
-
-
 def read_data(filepath):
     names_to_labels = dict()
     with open (filepath) as infile:

@@ -1,22 +1,33 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from network import *
+from data_handler import Data
 
 #source https://pythonprogramming.net/cnn-tensorflow-convolutional-nerual-network-machine-learning-tutorial/
+#source https://www.datacamp.com/community/tutorials/cnn-tensorflow-python
 
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+#mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+
+data = Data(41904)
 
 
 
-x = tf.placeholder('float', [None, 784])
+train_X = data.train_x #mnist.train.images
+test_X = data.test_x #mnist.test.images
+train_y = data.train_y #mnist.train.labels
+test_y = data.test_y #mnist.test.labels
+
+
+# x = tf.placeholder('float', [None, 784]) 200*200 = 40000
+x = tf.placeholder('float', [None, 40000])
 y = tf.placeholder('float')
 
 #important settings
 keep_rate = 0.5 #dropout rate
 keep_prob = tf.placeholder(tf.float32)
 epochs = 3 # howmany dataset is pushed trough network... This is the slow part
-n_classes = 10
-batch_size = 128 # howmany samples at once trough network.
+n_classes = 11
+batch_size = 1 # howmany samples at once trough network.
 
 
 def convolutional_neural_network(x):
@@ -29,7 +40,8 @@ def convolutional_neural_network(x):
         'W_conv3': tf.Variable(tf.random_normal([3, 3, 64, 128])),
 
         # fully connected, 7*7*64 inputs, 1024 outputs. 4*4 because after applying 3 convolution and max-pooling operations, you are downsampling the input image from 28 x 28 x 1 to 4 x 4 x 1.
-        'W_fc': tf.Variable(tf.random_normal([4*4*128, 1024])),
+        #'W_fc': tf.Variable(tf.random_normal([4*4*128, 1024])),
+        'W_fc': tf.Variable(tf.random_normal([25 * 25 * 128, 1024])),
         # 1024 inputs, 10 outputs (class prediction)
         'out': tf.Variable(tf.random_normal([1024, n_classes]))
     }
@@ -38,12 +50,14 @@ def convolutional_neural_network(x):
         'b_conv1': tf.Variable(tf.random_normal([32])),
         'b_conv2': tf.Variable(tf.random_normal([64])),
         'b_conv3': tf.Variable(tf.random_normal([128])),
+        # 'b_fc': tf.Variable(tf.random_normal([1024])),
         'b_fc': tf.Variable(tf.random_normal([1024])),
         'out': tf.Variable(tf.random_normal([n_classes]))
     }
 
     # Reshape input to a 4D tensor
-    x = tf.reshape(x, shape=[-1, 28, 28, 1])
+    #used to be 28,28
+    x = tf.reshape(x, shape=[-1, 200, 200, 1])
 
     # Convolution Layer, using our function
     conv1 = tf.nn.relu(conv2d(x, weights['W_conv1'], biases['b_conv1']))
@@ -58,7 +72,8 @@ def convolutional_neural_network(x):
     # Max Pooling (down-sampling)
     conv3 = maxpool2d(conv3)
 
-    fc = tf.reshape(conv3, [-1, 4 * 4 * 128])
+    #fc = tf.reshape(conv3, [-1, 4 * 4 * 128])
+    fc = tf.reshape(conv3, [-1, 25 * 25 * 128])
     fc = tf.nn.relu(tf.matmul(fc, weights['W_fc']) + biases['b_fc'])
     fc = tf.nn.dropout(fc, keep_rate)
 
@@ -88,9 +103,15 @@ def train_neural_network(x):
         for epoch in range(epochs):
             epoch_loss = 0
 
-            for b in range(int(mnist.train.num_examples / batch_size)):
+            #for b in range(int(mnist.train.num_examples / batch_size)):
+            for b in range(int(data.num_train()/ batch_size)):
 
-                epoch_x, epoch_y = mnist.train.next_batch(batch_size)
+                #epoch_x, epoch_y = mnist.train.next_batch(batch_size)
+
+                epoch_x = train_X[b * batch_size:min((b + 1) * batch_size, len(train_X))]
+                epoch_y = train_y[b * batch_size:min((b + 1) * batch_size, len(train_y))]
+
+
 
                 opt = sess.run(optimizer, feed_dict={x: epoch_x, y: epoch_y})
 
@@ -114,7 +135,8 @@ def train_neural_network(x):
             test_acc.append(test_accu)
 
 
-        print('Accuracy:', accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+        #print('Accuracy:', accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+        print('Accuracy:', accuracy.eval({x: data.test_x, y: data.test_y}))
 
 
 train_neural_network(x)

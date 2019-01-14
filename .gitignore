@@ -113,3 +113,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Data
+resized.zip
+resized/
+automatically_annotated.csv
+numpy_data_matrix
+MNIST_data/
+*.jpg
+formatted.csv
+*.csv
