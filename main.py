@@ -21,7 +21,7 @@ y = tf.placeholder('float')
 #important settings
 keep_rate = 0.25 #dropout rate
 keep_prob = tf.placeholder(tf.float32)
-epochs = 5 # howmany dataset is pushed trough network... This is the slow part
+epochs = 3 # howmany dataset is pushed trough network... This is the slow part
 n_classes = 11
 batch_size = 128 # howmany samples at once trough network.
 
@@ -78,7 +78,7 @@ def train_neural_network(x):
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits = prediction, labels=y)
     cost = tf.reduce_mean(cross_entropy)
     #optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.0001).minimize(cost)
+    optimizer = tf.train.GradientDescentOptimizer().minimize(cost)
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
@@ -123,8 +123,9 @@ def train_neural_network(x):
 
             print("epoch " + str(epoch) + ", Loss= " + \
                   "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f}".format(acc)) + ", Test Accuracy= " + \
-                  "{:.5f}".format(test_accu)
+                  "{:.5f}".format(acc))
+
+            print("test acc: " + str(test_accu))
 
 
         print('Accuracy:', accuracy.eval({x: data.test_x, y: data.test_y}))
