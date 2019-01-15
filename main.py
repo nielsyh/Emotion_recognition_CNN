@@ -19,7 +19,7 @@ x = tf.placeholder('float', [None,1,200,200])
 y = tf.placeholder('float')
 
 #important settings
-keep_rate = 0.5 #dropout rate
+keep_rate = 0.25 #dropout rate
 keep_prob = tf.placeholder(tf.float32)
 epochs = 10 # howmany dataset is pushed trough network... This is the slow part
 n_classes = 11
@@ -77,8 +77,8 @@ def train_neural_network(x):
     prediction = convolutional_neural_network(x)
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits = prediction, labels=y)
     cost = tf.reduce_mean(cross_entropy)
-    optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
-
+    #optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.00001).minimize(cost)
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
