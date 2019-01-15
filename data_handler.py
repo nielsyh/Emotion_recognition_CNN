@@ -71,8 +71,7 @@ class Data():
         #return round(self.total_images * 0.1)
         return 100
 
-#
-# a = Data(41904)
+#a = Data(41904)
 # print(a.test_x[:10])
-# print(a.test_y[:10])
-# print("done")
+# #print(a.test_y[:10])
+#print("done")
