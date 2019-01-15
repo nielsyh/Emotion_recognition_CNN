@@ -21,7 +21,7 @@ y = tf.placeholder('float')
 #important settings
 keep_rate = 0.25 #dropout rate
 keep_prob = tf.placeholder(tf.float32)
-epochs = 10 # howmany dataset is pushed trough network... This is the slow part
+epochs = 5 # howmany dataset is pushed trough network... This is the slow part
 n_classes = 11
 batch_size = 128 # howmany samples at once trough network.
 
@@ -78,7 +78,7 @@ def train_neural_network(x):
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits = prediction, labels=y)
     cost = tf.reduce_mean(cross_entropy)
     #optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.00001).minimize(cost)
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.0001).minimize(cost)
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
@@ -113,10 +113,6 @@ def train_neural_network(x):
                 #b, c = sess.run([optimizer, cost], feed_dict={x: epoch_x, y: epoch_y})
                 #epoch_loss += c
 
-            print("epoch " + str(epoch) + ", Loss= " + \
-                  "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f}".format(acc))
-            print("Optimization Finished!")
 
             # Calculate accuracy for all 10000 mnist test images
             test_accu, valid_loss = sess.run([accuracy, cost], feed_dict={x: epoch_x, y: epoch_y})
@@ -124,6 +120,12 @@ def train_neural_network(x):
             test_loss.append(valid_loss)
             train_acc.append(acc)
             test_acc.append(test_accu)
+
+            print("epoch " + str(epoch) + ", Loss= " + \
+                  "{:.6f}".format(loss) + ", Training Accuracy= " + \
+                  "{:.5f}".format(acc)) + ", Test Accuracy= " + \
+                  "{:.5f}".format(test_accu)
+
 
         print('Accuracy:', accuracy.eval({x: data.test_x, y: data.test_y}))
         plot_acc(train_loss, test_loss)
