@@ -88,7 +88,7 @@ def train_neural_network(x):
     cost = tf.reduce_mean(cross_entropy)
 
     #optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
-    optimizer = tf.train.GradientDescentOptimizer().minimize(cost)
+    optimizer = tf.train.GradientDescentOptimizer(0.00001).minimize(cost)
 
 
 

@@ -123,3 +123,5 @@ MNIST_data/
 *.jpg
 formatted.csv
 *.csv
+
+.idea/
