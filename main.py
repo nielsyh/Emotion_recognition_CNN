@@ -1,41 +1,48 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from network import *
-from data_handler import Data, plot_acc, plot_tt_acc
+from data_handler import Data
 
-#help websites
 #source https://pythonprogramming.net/cnn-tensorflow-convolutional-nerual-network-machine-learning-tutorial/
 #source https://www.datacamp.com/community/tutorials/cnn-tensorflow-python
 
-#init data
+#mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+
 data = Data(41904)
+
+
+
 train_X = data.train_x #mnist.train.images
 test_X = data.test_x #mnist.test.images
 train_y = data.train_y #mnist.train.labels
 test_y = data.test_y #mnist.test.labels
 
-#placeholder for data = amount(differs), channels, height, width
-x = tf.placeholder('float', [None,1,200,200])
+
+# x = tf.placeholder('float', [None, 784]) 200*200 = 40000
+x = tf.placeholder('float', [None, 40000])
 y = tf.placeholder('float')
 
 #important settings
-keep_rate = 0.25 #dropout rate
+keep_rate = 0.5 #dropout rate
 keep_prob = tf.placeholder(tf.float32)
 epochs = 3 # howmany dataset is pushed trough network... This is the slow part
 n_classes = 11
-batch_size = 128 # howmany samples at once trough network.
+batch_size = 1 # howmany samples at once trough network.
 
 
 def convolutional_neural_network(x):
     weights = {
-        # 3 x 3 convolution, 1 input image, 32 outputs
+        # 5 x 5 convolution, 1 input image, 32 outputs
         'W_conv1': tf.Variable(tf.random_normal([3, 3, 1, 32])),
+        # 5x5 conv, 32 inputs, 64 outputs
         'W_conv2': tf.Variable(tf.random_normal([3, 3, 32, 64])),
+
         'W_conv3': tf.Variable(tf.random_normal([3, 3, 64, 128])),
 
-        #fully connected after 3xmaxpooling 200 is 25. with input size 128.
+        # fully connected, 7*7*64 inputs, 1024 outputs. 4*4 because after applying 3 convolution and max-pooling operations, you are downsampling the input image from 28 x 28 x 1 to 4 x 4 x 1.
+        #'W_fc': tf.Variable(tf.random_normal([4*4*128, 1024])),
         'W_fc': tf.Variable(tf.random_normal([25 * 25 * 128, 1024])),
-        # 1024 inputs, 11 outputs (class prediction)
+        # 1024 inputs, 10 outputs (class prediction)
         'out': tf.Variable(tf.random_normal([1024, n_classes]))
     }
 
@@ -43,11 +50,13 @@ def convolutional_neural_network(x):
         'b_conv1': tf.Variable(tf.random_normal([32])),
         'b_conv2': tf.Variable(tf.random_normal([64])),
         'b_conv3': tf.Variable(tf.random_normal([128])),
+        # 'b_fc': tf.Variable(tf.random_normal([1024])),
         'b_fc': tf.Variable(tf.random_normal([1024])),
         'out': tf.Variable(tf.random_normal([n_classes]))
     }
 
     # Reshape input to a 4D tensor
+    #used to be 28,28
     x = tf.reshape(x, shape=[-1, 200, 200, 1])
 
     # Convolution Layer, using our function
@@ -63,7 +72,7 @@ def convolutional_neural_network(x):
     # Max Pooling (down-sampling)
     conv3 = maxpool2d(conv3)
 
-    #fc = tf.reshape(conv3, [-1, 4 * 4 * 128])   200 with 3 times max pooling = 25
+    #fc = tf.reshape(conv3, [-1, 4 * 4 * 128])
     fc = tf.reshape(conv3, [-1, 25 * 25 * 128])
     fc = tf.nn.relu(tf.matmul(fc, weights['W_fc']) + biases['b_fc'])
     fc = tf.nn.dropout(fc, keep_rate)
@@ -77,8 +86,11 @@ def train_neural_network(x):
     prediction = convolutional_neural_network(x)
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits = prediction, labels=y)
     cost = tf.reduce_mean(cross_entropy)
+
     #optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
     optimizer = tf.train.GradientDescentOptimizer().minimize(cost)
+
+
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
@@ -94,7 +106,7 @@ def train_neural_network(x):
         for epoch in range(epochs):
             epoch_loss = 0
 
-            # for b in range(int(mnist.train.num_examples / batch_size)):
+            #for b in range(int(mnist.train.num_examples / batch_size)):
             for b in range(int(data.num_train()/ batch_size)):
 
                 #epoch_x, epoch_y = mnist.train.next_batch(batch_size)
@@ -121,6 +133,7 @@ def train_neural_network(x):
             train_acc.append(acc)
             test_acc.append(test_accu)
 
+
             print("epoch " + str(epoch) + ", Loss= " + \
                   "{:.6f}".format(loss) + ", Training Accuracy= " + \
                   "{:.5f}".format(acc))
@@ -128,9 +141,8 @@ def train_neural_network(x):
             print("test acc: " + str(test_accu))
 
 
+        #print('Accuracy:', accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
         print('Accuracy:', accuracy.eval({x: data.test_x, y: data.test_y}))
-        plot_acc(train_loss, test_loss)
-        plot_tt_acc(train_loss, train_acc, test_acc)
 
 
 train_neural_network(x)
