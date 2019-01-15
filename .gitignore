@@ -114,6 +114,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+
 # Data
 resized.zip
 resized/
@@ -123,3 +124,5 @@ MNIST_data/
 *.jpg
 formatted.csv
 *.csv
+.idea/
+.idea/*
