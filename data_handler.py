@@ -1,6 +1,28 @@
 from PIL import Image
 import numpy as np
+import matplotlib.pyplot as plt
 import os
+
+
+def plot_acc(train_loss, test_loss):
+    plt.plot(range(len(train_loss)), train_loss, 'b', label='Training loss')
+    plt.plot(range(len(train_loss)), test_loss, 'r', label='Test loss')
+    plt.title('Training and Test loss')
+    plt.xlabel('Epochs ', fontsize=16)
+    plt.ylabel('Loss', fontsize=16)
+    plt.legend()
+    plt.figure()
+    plt.show()
+
+def plot_tt_acc(train_loss, train_accuracy,test_accuracy):
+    plt.plot(range(len(train_loss)), train_accuracy, 'b', label='Training Accuracy')
+    plt.plot(range(len(train_loss)), test_accuracy, 'r', label='Test Accuracy')
+    plt.title('Training and Test Accuracy')
+    plt.xlabel('Epochs ', fontsize=16)
+    plt.ylabel('Loss', fontsize=16)
+    plt.legend()
+    plt.figure()
+    plt.show()
 
 class Data():
 
@@ -13,9 +35,15 @@ class Data():
         print("length dict: " + str(len(self.dict)))
         self.total_images = int(len(self.dict))
 
-        self.train_x = np.empty((self.num_train(), 40000))
+        #self.train_x = np.empty((self.num_train(), 40000))
+
+        self.train_x = np.ndarray(shape=(self.num_train(), 1, 200, 200),
+                             dtype=np.float32)
+        self.test_x = np.ndarray(shape=(self.num_test(), 1, 200, 200),
+                             dtype=np.float32)
+
         self.train_y = np.empty((self.num_train(),1))
-        self.test_x = np.empty((self.num_test(), 40000))
+
         self.test_y = np.empty((self.num_test(), 1))
 
         # separates all data into train(x,y) and test(x,y) sets
@@ -26,10 +54,10 @@ class Data():
             path = 'resized/' + image_name
 
             if(index < self.num_train()):
-                self.train_x[index, 0:40000] = self.get_pixels(path)
+                self.train_x[index] = self.get_pixels(path)
                 self.train_y[index] = label
             else:
-                self.test_x[index - self.num_train(), 0:40000] = self.get_pixels(path)
+                self.test_x[index - self.num_train()] = self.get_pixels(path)
                 self.test_y[index - self.num_train()] = label
             index = index + 1
 
@@ -58,21 +86,21 @@ class Data():
     def get_pixels(self, path):
         img = Image.open(path)
         arr = np.asarray(img)
-        #two dimensional array to array. because Im to lazy to google if i add an array to an array in numpy..
-        return arr.ravel()
+        return arr
 
     def num_train(self):
         # first 90% is training
-        #return round(self.total_images * 0.9)
+        # return round(self.total_images * 0.9)
         return 10000
 
     def num_test(self):
         # last 10% is test.
-        #return round(self.total_images * 0.1)
-        return 1000
+        # return round(self.total_images * 0.1)
+        return 500
 
-
-#a = Data(41904)
+#
+# a = Data(41904)
 # print(a.test_x[:10])
-# #print(a.test_y[:10])
-#print("done")
+# print(a.test_y[:10])
+# print(a.train_x.shape)
+# print("done")

@@ -123,5 +123,5 @@ MNIST_data/
 *.jpg
 formatted.csv
 *.csv
-
+ .idea/workspace.xml
 .idea/
