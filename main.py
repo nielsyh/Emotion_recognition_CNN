@@ -19,7 +19,7 @@ x = tf.placeholder('float', [None,1,200,200])
 y = tf.placeholder('float')
 
 #important settings
-keep_rate = 0.25 #dropout rate
+keep_rate = 0.75 #dropout rate
 keep_prob = tf.placeholder(tf.float32)
 epochs = 10 # howmany dataset is pushed trough network... This is the slow part
 n_classes = 11
@@ -63,7 +63,6 @@ def convolutional_neural_network(x):
     # Max Pooling (down-sampling)
     conv3 = maxpool2d(conv3)
 
-    #fc = tf.reshape(conv3, [-1, 4 * 4 * 128])   200 with 3 times max pooling = 25
     fc = tf.reshape(conv3, [-1, 25 * 25 * 128])
     fc = tf.nn.relu(tf.matmul(fc, weights['W_fc']) + biases['b_fc'])
     fc = tf.nn.dropout(fc, keep_rate)
@@ -77,8 +76,8 @@ def train_neural_network(x):
     prediction = convolutional_neural_network(x)
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits = prediction, labels=y)
     cost = tf.reduce_mean(cross_entropy)
-    #optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.00001).minimize(cost)
+    optimizer = tf.train.AdamOptimizer().minimize(cost) #default learning rate?
+    # optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.00001).minimize(cost)
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
@@ -88,8 +87,8 @@ def train_neural_network(x):
         train_acc = []
         test_acc = []
 
-        correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
-        accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
+        # correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
+        # accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
 
         for epoch in range(epochs):
             epoch_loss = 0
@@ -97,37 +96,42 @@ def train_neural_network(x):
             # for b in range(int(mnist.train.num_examples / batch_size)):
             for b in range(int(data.num_train()/ batch_size)):
 
-                #epoch_x, epoch_y = mnist.train.next_batch(batch_size)
-
                 epoch_x = train_X[b * batch_size:min((b + 1) * batch_size, len(train_X))]
                 epoch_y = train_y[b * batch_size:min((b + 1) * batch_size, len(train_y))]
 
+                _, c = sess.run([optimizer, cost], feed_dict={x: epoch_x, y: epoch_y})
+                epoch_loss += c
+
+                # opt = sess.run(optimizer, feed_dict={x: epoch_x, y: epoch_y})
+                # loss, acc = sess.run([cost, accuracy], feed_dict={x: epoch_x,
+                #                                                   y: epoch_y})
+                # epoch_loss = epoch_loss + loss
+
+            correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
+            accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
+            print('Loss: ' + str(epoch_loss))
+            train_loss.append(epoch_loss)
+            test_accuracy  = accuracy.eval({x: data.test_x, y: data.test_y})
+            print('Test Accuracy:', str(test_accuracy))
+            test_acc.append(test_accuracy)
 
 
-                opt = sess.run(optimizer, feed_dict={x: epoch_x, y: epoch_y})
+            # # Calculate accuracy for all 10000 mnist test images
+            # test_accu, valid_loss = sess.run([accuracy, cost], feed_dict={x: test_X, y: test_y})
+            # train_loss.append(loss)
+            # test_loss.append(valid_loss)
+            # train_acc.append(acc)
+            # test_acc.append(test_accu)
 
-                loss, acc = sess.run([cost, accuracy], feed_dict={x: epoch_x,
-                                                                  y: epoch_y})
-
-
-                #b, c = sess.run([optimizer, cost], feed_dict={x: epoch_x, y: epoch_y})
-                #epoch_loss += c
-
-            print("epoch " + str(epoch) + ", Loss= " + \
-                  "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f}".format(acc))
-            print("Optimization Finished!")
-
-            # Calculate accuracy for all 10000 mnist test images
-            test_accu, valid_loss = sess.run([accuracy, cost], feed_dict={x: epoch_x, y: epoch_y})
-            train_loss.append(loss)
-            test_loss.append(valid_loss)
-            train_acc.append(acc)
-            test_acc.append(test_accu)
+            # print("epoch " + str(epoch) + ", Loss= " + \
+            #       "{:.6f}".format(loss) + ", Training Accuracy= " + \
+            #       "{:.5f}".format(acc))
+            # print('test acc: ' + test_accu)
 
         print('Accuracy:', accuracy.eval({x: data.test_x, y: data.test_y}))
-        plot_acc(train_loss, test_loss)
-        plot_tt_acc(train_loss, train_acc, test_acc)
+        # plot_acc(train_loss, test_loss)
+        # plot_tt_acc(train_loss, train_acc, test_acc)
+        print(str(test_acc))
 
 
 train_neural_network(x)

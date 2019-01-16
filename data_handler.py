@@ -46,20 +46,37 @@ class Data():
 
         self.test_y = np.empty((self.num_test(), 1))
 
-        # separates all data into train(x,y) and test(x,y) sets
-        index = 0
-        for image_name,label in self.dict.items():
-            if (index == self.num_train() + self.num_test()):
-                break
-            path = 'resized/' + image_name
+        exists1 = os.path.isfile('trainx.npy')
+        exists2 = os.path.isfile('trainy.npy')
+        exists3 = os.path.isfile('testy.npy')
+        exists4 = os.path.isfile('testy.npy')
+        if(exists1 and exists2 and exists3 and exists4):
+            print('load data from last time..')
+            self.train_x = np.load('trainx.npy')
+            self.test_x = np.load('testx.npy')
+            self.train_y = np.load('trainy.npy')
+            self.test_y = np.load('testy.npy')
+        else:
+            # separates all data into train(x,y) and test(x,y) sets
+            index = 0
+            for image_name,label in self.dict.items():
+                if (index == self.num_train() + self.num_test()):
+                    break
+                path = 'resized/' + image_name
 
-            if(index < self.num_train()):
-                self.train_x[index] = self.get_pixels(path)
-                self.train_y[index] = label
-            else:
-                self.test_x[index - self.num_train()] = self.get_pixels(path)
-                self.test_y[index - self.num_train()] = label
-            index = index + 1
+                if(index < self.num_train()):
+                    self.train_x[index] = self.get_pixels(path)
+                    self.train_y[index] = label
+                else:
+                    self.test_x[index - self.num_train()] = self.get_pixels(path)
+                    self.test_y[index - self.num_train()] = label
+                index = index + 1
+
+            print('saving data for next time')
+            np.save('trainx.npy', self.train_x)
+            np.save('trainy.npy', self.train_y)
+            np.save('testx.npy', self.test_x)
+            np.save('testy.npy', self.test_y)
 
         print("init data done..")
 
@@ -92,13 +109,18 @@ class Data():
     def num_train(self):
         # first 90% is training
         # return round(self.total_images * 0.9)
-        return 10000
+        return 1000
 
     def num_test(self):
         # last 10% is test.
-        #return round(self.total_images * 0.1)
+        # return round(self.total_images * 0.1)
         return 500
 
+    def sample_train(self,num):
+        return self.train_x[:num], self.train_y[:num]
+
+    def sample_test(self,num):
+        return self.test_x[:num], self.test_y[:num]
 #
 # a = Data(41904)
 # print(a.test_x[:10])
