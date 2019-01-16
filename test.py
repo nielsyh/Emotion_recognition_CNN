@@ -11,6 +11,8 @@ test_y = data.test_y #mnist.test.labels
 n_classes = 11
 batch_size = 128
 
+
+
 x = tf.placeholder('float', [None,1,200,200])
 y = tf.placeholder('float')
 
@@ -21,9 +23,11 @@ keep_prob = tf.placeholder(tf.float32)
 def conv2d(x, W):
     return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
 
+
 def maxpool2d(x):
     #                        size of window         movement of window
     return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+
 
 def convolutional_neural_network(x):
     weights = {

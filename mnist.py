@@ -6,6 +6,10 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 n_classes = 10
 batch_size = 128
 
+
+
+
+
 x = tf.placeholder('float', [None, 784])
 y = tf.placeholder('float')
 
@@ -23,15 +27,25 @@ def maxpool2d(x):
 
 
 def convolutional_neural_network(x):
-    weights = {'W_conv1': tf.Variable(tf.random_normal([5, 5, 1, 32])),
-               'W_conv2': tf.Variable(tf.random_normal([5, 5, 32, 64])),
-               'W_fc': tf.Variable(tf.random_normal([7 * 7 * 64, 1024])),
-               'out': tf.Variable(tf.random_normal([1024, n_classes]))}
+    weights = {
+        # 3 x 3 convolution, 1 input image, 32 outputs
+        'W_conv1': tf.Variable(tf.random_normal([3, 3, 1, 32])),
+        'W_conv2': tf.Variable(tf.random_normal([3, 3, 32, 64])),
+        'W_conv3': tf.Variable(tf.random_normal([3, 3, 64, 128])),
 
-    biases = {'b_conv1': tf.Variable(tf.random_normal([32])),
-              'b_conv2': tf.Variable(tf.random_normal([64])),
-              'b_fc': tf.Variable(tf.random_normal([1024])),
-              'out': tf.Variable(tf.random_normal([n_classes]))}
+        #fully connected after 3xmaxpooling 200 is 25. with input size 128.
+        'W_fc': tf.Variable(tf.random_normal([4 * 4 * 128, 1024])),
+        # 1024 inputs, 11 outputs (class prediction)
+        'out': tf.Variable(tf.random_normal([1024, n_classes]))
+    }
+
+    biases = {
+        'b_conv1': tf.Variable(tf.random_normal([32])),
+        'b_conv2': tf.Variable(tf.random_normal([64])),
+        'b_conv3': tf.Variable(tf.random_normal([128])),
+        'b_fc': tf.Variable(tf.random_normal([1024])),
+        'out': tf.Variable(tf.random_normal([n_classes]))
+    }
 
     x = tf.reshape(x, shape=[-1, 28, 28, 1])
 
@@ -41,7 +55,10 @@ def convolutional_neural_network(x):
     conv2 = tf.nn.relu(conv2d(conv1, weights['W_conv2']) + biases['b_conv2'])
     conv2 = maxpool2d(conv2)
 
-    fc = tf.reshape(conv2, [-1, 7 * 7 * 64])
+    conv3 = tf.nn.relu(conv2d(conv2, weights['W_conv3']+ biases['b_conv3']))
+    conv3 = maxpool2d(conv3)
+
+    fc = tf.reshape(conv3, [-1, 4 * 4 * 128])
     fc = tf.nn.relu(tf.matmul(fc, weights['W_fc']) + biases['b_fc'])
     fc = tf.nn.dropout(fc, keep_rate)
 
