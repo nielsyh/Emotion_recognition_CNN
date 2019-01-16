@@ -2,6 +2,9 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 from data_handler import Data, plot_acc, plot_tt_acc
 
+#source https://pythonprogramming.net/cnn-tensorflow-convolutional-nerual-network-machine-learning-tutorial/
+#source https://www.datacamp.com/community/tutorials/cnn-tensorflow-python
+
 data = Data(41904)
 train_X = data.train_x #mnist.train.images
 test_X = data.test_x #mnist.test.images
@@ -71,7 +74,7 @@ def train_neural_network(x):
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits=prediction, labels=y)
     cost = tf.reduce_mean(cross_entropy)
     optimizer = tf.train.AdamOptimizer().minimize(cost)
-
+    test_acc = []
     hm_epochs = 2
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
@@ -87,10 +90,16 @@ def train_neural_network(x):
 
             print('Epoch', epoch, 'completed out of', hm_epochs, 'loss:', epoch_loss)
 
+            correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
+            accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
+            test_acc.append(accuracy)
+            print('Accuracy:', accuracy.eval({x: test_X, y: test_y}))
+
         correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
 
+        print(test_acc)
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-        print('Accuracy:', accuracy.eval({x: test_X, y: test_y}))
+        print('Last Accuracy:', accuracy.eval({x: test_X, y: test_y}))
 
 
 train_neural_network(x)
