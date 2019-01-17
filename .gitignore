@@ -125,3 +125,9 @@ formatted.csv
 *.csv
  .idea/workspace.xml
 .idea/
+testx.npy
+testy.npy
+trainx.npy
+trainy.npy
+
+
