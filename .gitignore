@@ -118,6 +118,7 @@ dmypy.json
 # Data
 resized.zip
 resized/
+small/
 automatically_annotated.csv
 numpy_data_matrix
 MNIST_data/

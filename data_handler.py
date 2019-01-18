@@ -37,9 +37,9 @@ class Data():
 
         #self.train_x = np.empty((self.num_train(), 40000))
 
-        self.train_x = np.ndarray(shape=(self.num_train(), 1, 200, 200),
+        self.train_x = np.ndarray(shape=(self.num_train(), 1, 50, 50),
                              dtype=np.float32)
-        self.test_x = np.ndarray(shape=(self.num_test(), 1, 200, 200),
+        self.test_x = np.ndarray(shape=(self.num_test(), 1, 50, 50),
                              dtype=np.float32)
 
         self.train_y = np.empty((self.num_train(),1))
@@ -62,7 +62,7 @@ class Data():
             for image_name,label in self.dict.items():
                 if (index == self.num_train() + self.num_test()):
                     break
-                path = 'resized/' + image_name
+                path = 'small/' + image_name
 
                 if(index < self.num_train()):
                     self.train_x[index] = self.get_pixels(path)
@@ -88,7 +88,7 @@ class Data():
             for line in infile:
                 temp = line.rstrip('\r\n').split(',')
                 file = temp[0]
-                path = 'resized/' + file
+                path = 'small/' + file
                 exists = os.path.isfile(path)
                 if(exists):
                     if (temp[6] == 'expression'):
@@ -108,13 +108,13 @@ class Data():
 
     def num_train(self):
         # first 90% is training
-        # return round(self.total_images * 0.9)
-        return 10000
+        return round(self.total_images * 0.9)
+        # return 15000
 
     def num_test(self):
         # last 10% is test.
-        # return round(self.total_images * 0.1)
-        return 100
+        return round(self.total_images * 0.1)
+        # return 1000
 
     def sample_train(self,num):
         return self.train_x[:num], self.train_y[:num]
