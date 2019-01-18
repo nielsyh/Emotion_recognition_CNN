@@ -114,7 +114,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
 # Data
 resized.zip
 resized/
@@ -125,11 +124,11 @@ MNIST_data/
 *.jpg
 formatted.csv
 *.csv
+ .idea/workspace.xml
 .idea/
-.idea/*
-
 testx.npy
 testy.npy
 trainx.npy
 trainy.npy
+
 

@@ -16,6 +16,7 @@ img_rows, img_cols = 50, 50
 
 
 
+
 data = Data(41904)
 x_train = data.train_x #mnist.train.images
 x_test = data.test_x #mnist.test.images
@@ -70,7 +71,8 @@ model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.SGD(),
-              metrics=['accuracy'])
+              metrics=['accuracy']
+              )
 
 model.fit(x_train, y_train,
           batch_size=batch_size,

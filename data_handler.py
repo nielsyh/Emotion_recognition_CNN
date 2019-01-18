@@ -110,11 +110,14 @@ class Data():
         # first 90% is training
         return round(self.total_images * 0.9)
         # return 15000
+        # return 10000
+
 
     def num_test(self):
         # last 10% is test.
         return round(self.total_images * 0.1)
         # return 1000
+        #return 100
 
     def sample_train(self,num):
         return self.train_x[:num], self.train_y[:num]
