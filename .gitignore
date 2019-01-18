@@ -131,4 +131,8 @@ testy.npy
 trainx.npy
 trainy.npy
 
+# Mac related files
+.DS_Store
+.AppleDouble
+.LSOverride
 
