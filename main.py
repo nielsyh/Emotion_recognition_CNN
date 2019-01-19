@@ -70,7 +70,7 @@ model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.SGD(),
+              optimizer=keras.optimizers.SGD(lr=0.001),
               metrics=['accuracy']
               )
 
