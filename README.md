@@ -95,3 +95,27 @@ Lastly, we can use the M measure as proposed by Hand et al. [3] which is a
 generalization approach that aggregates all pairs of classes based on the inherent
 characteristics of the Area Under the Curve (AUC). The major advantage of
 this method is that it is insensitive to class distribution and error costs.
+
+## How to run
+In order to run the project, certain versions of Python modules should be installed. 
+
+We require `Python 3.6` which can be found here [here](https://www.python.org/downloads/)
+
+After you've successfully installed `Python 3.6`, you should start installing the modules.
+
+`pip3.6 install tensorflow==1.2.0`
+
+`pip3.6 install keras==2.1.3`
+
+`pip3.6 install `
+
+
+
+
+
+
+
+
+
+
+
