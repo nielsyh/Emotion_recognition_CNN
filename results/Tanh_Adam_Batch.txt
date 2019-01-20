@@ -1,51 +1,51 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
-{\fonttbl\f0\fnil\fcharset0 AndaleMono;}
-{\colortbl;\red255\green255\blue255;\red47\green255\blue18;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+{rtf1ansiansicpg1252cocoartf1404cocoasubrtf470
+{fonttblf0fnilfcharset0 AndaleMono;}
+{colortbl;red255green255blue255;red47green255blue18;}
+paperw11900paperh16840margl1440margr1440vieww10800viewh8400viewkind0
+pardtx560tx1120tx1680tx2240tx2800tx3360tx3920tx4480tx5040tx5600tx6160tx6720pardirnaturalpartightenfactor0
 
-\f0\fs24 \cf2 \cb0 \CocoaLigature0 The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.\
-Train on 33942 samples, validate on 3772 samples\
-Epoch 1/20\
-33942/33942 [==============================] - 2116s 62ms/step - loss: 6.4211 - acc: 0.3116 - val_loss: 6.1179 - val_acc: 0.5199\
-Epoch 2/20\
-33942/33942 [==============================] - 2100s 62ms/step - loss: 5.9813 - acc: 0.4466 - val_loss: 5.9778 - val_acc: 0.5395\
-Epoch 3/20\
-33942/33942 [==============================] - 2105s 62ms/step - loss: 5.7937 - acc: 0.4949 - val_loss: 5.8351 - val_acc: 0.5597\
-Epoch 4/20\
-33942/33942 [==============================] - 2104s 62ms/step - loss: 5.6561 - acc: 0.5165 - val_loss: 5.6822 - val_acc: 0.5700\
-Epoch 5/20\
-33942/33942 [==============================] - 2111s 62ms/step - loss: 5.5320 - acc: 0.5399 - val_loss: 5.5329 - val_acc: 0.5700\
-Epoch 6/20\
-33942/33942 [==============================] - 2107s 62ms/step - loss: 5.4258 - acc: 0.5598 - val_loss: 5.3871 - val_acc: 0.5822\
-Epoch 7/20\
-33942/33942 [==============================] - 2102s 62ms/step - loss: 5.3336 - acc: 0.5687 - val_loss: 5.3126 - val_acc: 0.5798\
-Epoch 8/20\
-33942/33942 [==============================] - 2102s 62ms/step - loss: 5.2390 - acc: 0.5810 - val_loss: 5.2260 - val_acc: 0.5944\
-Epoch 9/20\
-33942/33942 [==============================] - 2101s 62ms/step - loss: 5.1539 - acc: 0.5914 - val_loss: 5.1338 - val_acc: 0.5941\
-Epoch 10/20\
-33942/33942 [==============================] - 2104s 62ms/step - loss: 5.0742 - acc: 0.5999 - val_loss: 5.0697 - val_acc: 0.5899\
-Epoch 11/20\
-33942/33942 [==============================] - 2101s 62ms/step - loss: 4.9958 - acc: 0.6085 - val_loss: 5.0522 - val_acc: 0.5880\
-Epoch 12/20\
-33942/33942 [==============================] - 2096s 62ms/step - loss: 4.9221 - acc: 0.6191 - val_loss: 4.9584 - val_acc: 0.5904\
-Epoch 13/20\
-33942/33942 [==============================] - 2094s 62ms/step - loss: 4.8551 - acc: 0.6216 - val_loss: 4.9243 - val_acc: 0.5909\
-Epoch 14/20\
-33942/33942 [==============================] - 2099s 62ms/step - loss: 4.7884 - acc: 0.6310 - val_loss: 4.8526 - val_acc: 0.5880\
-Epoch 15/20\
-33942/33942 [==============================] - 2097s 62ms/step - loss: 4.7248 - acc: 0.6350 - val_loss: 4.8277 - val_acc: 0.5920\
-Epoch 16/20\
-33942/33942 [==============================] - 2397s 71ms/step - loss: 4.6559 - acc: 0.6428 - val_loss: 4.7671 - val_acc: 0.5925\
-Epoch 17/20\
-33942/33942 [==============================] - 2341s 69ms/step - loss: 4.6074 - acc: 0.6450 - val_loss: 4.7102 - val_acc: 0.5973\
-Epoch 18/20\
-33942/33942 [==============================] - 2362s 70ms/step - loss: 4.5480 - acc: 0.6518 - val_loss: 4.7436 - val_acc: 0.5764\
-Epoch 19/20\
-33942/33942 [==============================] - 2493s 73ms/step - loss: 4.4871 - acc: 0.6564 - val_loss: 4.6221 - val_acc: 0.5917\
-Epoch 20/20\
-33942/33942 [==============================] - 2439s 72ms/step - loss: 4.4281 - acc: 0.6627 - val_loss: 4.5827 - val_acc: 0.6015\
-Test loss: 4.5127605740950045\
-Test accuracy: 0.613842482014886\
+f0fs24 cf2 cb0 CocoaLigature0 The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+Train on 33942 samples, validate on 3772 samples
+Epoch 1/20
+33942/33942 [==============================] - 2116s 62ms/step - loss: 6.4211 - acc: 0.3116 - val_loss: 6.1179 - val_acc: 0.5199
+Epoch 2/20
+33942/33942 [==============================] - 2100s 62ms/step - loss: 5.9813 - acc: 0.4466 - val_loss: 5.9778 - val_acc: 0.5395
+Epoch 3/20
+33942/33942 [==============================] - 2105s 62ms/step - loss: 5.7937 - acc: 0.4949 - val_loss: 5.8351 - val_acc: 0.5597
+Epoch 4/20
+33942/33942 [==============================] - 2104s 62ms/step - loss: 5.6561 - acc: 0.5165 - val_loss: 5.6822 - val_acc: 0.5700
+Epoch 5/20
+33942/33942 [==============================] - 2111s 62ms/step - loss: 5.5320 - acc: 0.5399 - val_loss: 5.5329 - val_acc: 0.5700
+Epoch 6/20
+33942/33942 [==============================] - 2107s 62ms/step - loss: 5.4258 - acc: 0.5598 - val_loss: 5.3871 - val_acc: 0.5822
+Epoch 7/20
+33942/33942 [==============================] - 2102s 62ms/step - loss: 5.3336 - acc: 0.5687 - val_loss: 5.3126 - val_acc: 0.5798
+Epoch 8/20
+33942/33942 [==============================] - 2102s 62ms/step - loss: 5.2390 - acc: 0.5810 - val_loss: 5.2260 - val_acc: 0.5944
+Epoch 9/20
+33942/33942 [==============================] - 2101s 62ms/step - loss: 5.1539 - acc: 0.5914 - val_loss: 5.1338 - val_acc: 0.5941
+Epoch 10/20
+33942/33942 [==============================] - 2104s 62ms/step - loss: 5.0742 - acc: 0.5999 - val_loss: 5.0697 - val_acc: 0.5899
+Epoch 11/20
+33942/33942 [==============================] - 2101s 62ms/step - loss: 4.9958 - acc: 0.6085 - val_loss: 5.0522 - val_acc: 0.5880
+Epoch 12/20
+33942/33942 [==============================] - 2096s 62ms/step - loss: 4.9221 - acc: 0.6191 - val_loss: 4.9584 - val_acc: 0.5904
+Epoch 13/20
+33942/33942 [==============================] - 2094s 62ms/step - loss: 4.8551 - acc: 0.6216 - val_loss: 4.9243 - val_acc: 0.5909
+Epoch 14/20
+33942/33942 [==============================] - 2099s 62ms/step - loss: 4.7884 - acc: 0.6310 - val_loss: 4.8526 - val_acc: 0.5880
+Epoch 15/20
+33942/33942 [==============================] - 2097s 62ms/step - loss: 4.7248 - acc: 0.6350 - val_loss: 4.8277 - val_acc: 0.5920
+Epoch 16/20
+33942/33942 [==============================] - 2397s 71ms/step - loss: 4.6559 - acc: 0.6428 - val_loss: 4.7671 - val_acc: 0.5925
+Epoch 17/20
+33942/33942 [==============================] - 2341s 69ms/step - loss: 4.6074 - acc: 0.6450 - val_loss: 4.7102 - val_acc: 0.5973
+Epoch 18/20
+33942/33942 [==============================] - 2362s 70ms/step - loss: 4.5480 - acc: 0.6518 - val_loss: 4.7436 - val_acc: 0.5764
+Epoch 19/20
+33942/33942 [==============================] - 2493s 73ms/step - loss: 4.4871 - acc: 0.6564 - val_loss: 4.6221 - val_acc: 0.5917
+Epoch 20/20
+33942/33942 [==============================] - 2439s 72ms/step - loss: 4.4281 - acc: 0.6627 - val_loss: 4.5827 - val_acc: 0.6015
+Test loss: 4.5127605740950045
+Test accuracy: 0.613842482014886
 }

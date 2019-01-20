@@ -1,62 +1,62 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red53\green53\blue53;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\deftab560
-\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+{rtf1ansiansicpg1252cocoartf1404cocoasubrtf470
+{fonttblf0fswissfcharset0 Helvetica;}
+{colortbl;red255green255blue255;red53green53blue53;}
+paperw11900paperh16840margl1440margr1440vieww10800viewh8400viewkind0
+deftab560
+pardpardeftab560slleading20pardirnaturalpartightenfactor0
 
-\f0\fs24 \cf2 MacBook-Air-di-Chiara-2:Emotion_recognition_CNN Chiara$ python3.6 main.py\
-Using TensorFlow backend.\
-init data..\
-length dict: 41904\
-load data from last time..\
-init data done..\
-x_train shape: (37714, 50, 50, 1)\
-37714 train samples\
-4190 test samples\
-Train on 37714 samples, validate on 4190 samples\
-Epoch 1/20\
-2019-01-18 13:26:32.745201: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.\
-2019-01-18 13:26:32.745301: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.\
-37714/37714 [==============================] - 2348s 62ms/step - loss: 1.6746 - acc: 0.3584 - val_loss: 1.5875 - val_acc: 0.2766\
-Epoch 2/20\
-37714/37714 [==============================] - 2269s 60ms/step - loss: 1.5975 - acc: 0.3832 - val_loss: 1.5603 - val_acc: 0.4126\
-Epoch 3/20\
-37714/37714 [==============================] - 2102s 56ms/step - loss: 1.5760 - acc: 0.3961 - val_loss: 1.5484 - val_acc: 0.4126\
-Epoch 4/20\
-37714/37714 [==============================] - 2311s 61ms/step - loss: 1.5613 - acc: 0.4068 - val_loss: 1.5469 - val_acc: 0.4126\
-Epoch 5/20\
-37714/37714 [==============================] - 2402s 64ms/step - loss: 1.5580 - acc: 0.4099 - val_loss: 1.5507 - val_acc: 0.4126\
-Epoch 6/20\
-37714/37714 [==============================] - 2362s 63ms/step - loss: 1.5536 - acc: 0.4112 - val_loss: 1.5468 - val_acc: 0.4126\
-Epoch 7/20\
-37714/37714 [==============================] - 3485s 92ms/step - loss: 1.5505 - acc: 0.4113 - val_loss: 1.5495 - val_acc: 0.4126\
-Epoch 8/20\
-37714/37714 [==============================] - 2104s 56ms/step - loss: 1.5501 - acc: 0.4113 - val_loss: 1.5447 - val_acc: 0.4126\
-Epoch 9/20\
-37714/37714 [==============================] - 2439s 65ms/step - loss: 1.5490 - acc: 0.4115 - val_loss: 1.5456 - val_acc: 0.4126\
-Epoch 10/20\
-37714/37714 [==============================] - 2479s 66ms/step - loss: 1.5482 - acc: 0.4111 - val_loss: 1.5413 - val_acc: 0.4126\
-Epoch 11/20\
-37714/37714 [==============================] - 2543s 67ms/step - loss: 1.5476 - acc: 0.4114 - val_loss: 1.5427 - val_acc: 0.4126\
-Epoch 12/20\
-37714/37714 [==============================] - 2200s 58ms/step - loss: 1.5473 - acc: 0.4113 - val_loss: 1.5413 - val_acc: 0.4126\
-Epoch 13/20\
-37714/37714 [==============================] - 2140s 57ms/step - loss: 1.5471 - acc: 0.4115 - val_loss: 1.5407 - val_acc: 0.4126\
-Epoch 14/20\
-37714/37714 [==============================] - 1977s 52ms/step - loss: 1.5476 - acc: 0.4118 - val_loss: 1.5448 - val_acc: 0.4126\
-Epoch 15/20\
-37714/37714 [==============================] - 1983s 53ms/step - loss: 1.5462 - acc: 0.4113 - val_loss: 1.5427 - val_acc: 0.4126\
-Epoch 16/20\
-37714/37714 [==============================] - 1969s 52ms/step - loss: 1.5483 - acc: 0.4116 - val_loss: 1.5425 - val_acc: 0.4126\
-Epoch 17/20\
-37714/37714 [==============================] - 1988s 53ms/step - loss: 1.5464 - acc: 0.4116 - val_loss: 1.5479 - val_acc: 0.4126\
-Epoch 18/20\
-37714/37714 [==============================] - 1970s 52ms/step - loss: 1.5459 - acc: 0.4111 - val_loss: 1.5434 - val_acc: 0.4126\
-Epoch 19/20\
-37714/37714 [==============================] - 1962s 52ms/step - loss: 1.5463 - acc: 0.4109 - val_loss: 1.5484 - val_acc: 0.4126\
-Epoch 20/20\
-37714/37714 [==============================] - 1981s 53ms/step - loss: 1.5478 - acc: 0.4116 - val_loss: 1.5509 - val_acc: 0.4126\
-Test loss: 1.5508591724181802\
-Test accuracy: 0.41264916472048063\
+f0fs24 cf2 MacBook-Air-di-Chiara-2:Emotion_recognition_CNN Chiara$ python3.6 main.py
+Using TensorFlow backend.
+init data..
+length dict: 41904
+load data from last time..
+init data done..
+x_train shape: (37714, 50, 50, 1)
+37714 train samples
+4190 test samples
+Train on 37714 samples, validate on 4190 samples
+Epoch 1/20
+2019-01-18 13:26:32.745201: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2019-01-18 13:26:32.745301: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+37714/37714 [==============================] - 2348s 62ms/step - loss: 1.6746 - acc: 0.3584 - val_loss: 1.5875 - val_acc: 0.2766
+Epoch 2/20
+37714/37714 [==============================] - 2269s 60ms/step - loss: 1.5975 - acc: 0.3832 - val_loss: 1.5603 - val_acc: 0.4126
+Epoch 3/20
+37714/37714 [==============================] - 2102s 56ms/step - loss: 1.5760 - acc: 0.3961 - val_loss: 1.5484 - val_acc: 0.4126
+Epoch 4/20
+37714/37714 [==============================] - 2311s 61ms/step - loss: 1.5613 - acc: 0.4068 - val_loss: 1.5469 - val_acc: 0.4126
+Epoch 5/20
+37714/37714 [==============================] - 2402s 64ms/step - loss: 1.5580 - acc: 0.4099 - val_loss: 1.5507 - val_acc: 0.4126
+Epoch 6/20
+37714/37714 [==============================] - 2362s 63ms/step - loss: 1.5536 - acc: 0.4112 - val_loss: 1.5468 - val_acc: 0.4126
+Epoch 7/20
+37714/37714 [==============================] - 3485s 92ms/step - loss: 1.5505 - acc: 0.4113 - val_loss: 1.5495 - val_acc: 0.4126
+Epoch 8/20
+37714/37714 [==============================] - 2104s 56ms/step - loss: 1.5501 - acc: 0.4113 - val_loss: 1.5447 - val_acc: 0.4126
+Epoch 9/20
+37714/37714 [==============================] - 2439s 65ms/step - loss: 1.5490 - acc: 0.4115 - val_loss: 1.5456 - val_acc: 0.4126
+Epoch 10/20
+37714/37714 [==============================] - 2479s 66ms/step - loss: 1.5482 - acc: 0.4111 - val_loss: 1.5413 - val_acc: 0.4126
+Epoch 11/20
+37714/37714 [==============================] - 2543s 67ms/step - loss: 1.5476 - acc: 0.4114 - val_loss: 1.5427 - val_acc: 0.4126
+Epoch 12/20
+37714/37714 [==============================] - 2200s 58ms/step - loss: 1.5473 - acc: 0.4113 - val_loss: 1.5413 - val_acc: 0.4126
+Epoch 13/20
+37714/37714 [==============================] - 2140s 57ms/step - loss: 1.5471 - acc: 0.4115 - val_loss: 1.5407 - val_acc: 0.4126
+Epoch 14/20
+37714/37714 [==============================] - 1977s 52ms/step - loss: 1.5476 - acc: 0.4118 - val_loss: 1.5448 - val_acc: 0.4126
+Epoch 15/20
+37714/37714 [==============================] - 1983s 53ms/step - loss: 1.5462 - acc: 0.4113 - val_loss: 1.5427 - val_acc: 0.4126
+Epoch 16/20
+37714/37714 [==============================] - 1969s 52ms/step - loss: 1.5483 - acc: 0.4116 - val_loss: 1.5425 - val_acc: 0.4126
+Epoch 17/20
+37714/37714 [==============================] - 1988s 53ms/step - loss: 1.5464 - acc: 0.4116 - val_loss: 1.5479 - val_acc: 0.4126
+Epoch 18/20
+37714/37714 [==============================] - 1970s 52ms/step - loss: 1.5459 - acc: 0.4111 - val_loss: 1.5434 - val_acc: 0.4126
+Epoch 19/20
+37714/37714 [==============================] - 1962s 52ms/step - loss: 1.5463 - acc: 0.4109 - val_loss: 1.5484 - val_acc: 0.4126
+Epoch 20/20
+37714/37714 [==============================] - 1981s 53ms/step - loss: 1.5478 - acc: 0.4116 - val_loss: 1.5509 - val_acc: 0.4126
+Test loss: 1.5508591724181802
+Test accuracy: 0.41264916472048063
 MacBook-Air-di-Chiara-2:Emotion_recognition_CNN Chiara$ }
