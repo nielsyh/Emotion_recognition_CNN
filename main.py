@@ -47,16 +47,7 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 model = Sequential()
 #1
 model.add(Conv2D(32, kernel_size=(3, 3),
-<<<<<<< HEAD
-                 activation='tanh',
-                 input_shape=input_shape, kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
 
-model.add(Dropout(0.25))
-#2
-model.add(Conv2D(64, kernel_size=(3, 3),
-                 activation='tanh',
-                 input_shape=input_shape, kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
-=======
                  activation='relu',
                  input_shape=input_shape))
 model.add(Dropout(0.25))
@@ -64,8 +55,6 @@ model.add(Dropout(0.25))
 model.add(Conv2D(64, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
-
->>>>>>> 87a300dd3a90c71df7b63ca4b00d8b2128c518a0
 model.add(Dropout(0.25))
 
 #3
@@ -81,24 +70,15 @@ model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
-<<<<<<< HEAD
-              optimizer=keras.optimizers.Adam(),
-              metrics=['accuracy']
-              )
-=======
+
               optimizer=keras.optimizers.SGD(lr=0.001),
               metrics=['accuracy'])
->>>>>>> 87a300dd3a90c71df7b63ca4b00d8b2128c518a0
 
 model.fit(x_train, y_train,
           batch_size=batch_size,
           epochs=epochs,
           verbose=1,
-<<<<<<< HEAD
-          validation_split=0.1)
-=======
           validation_split= 0.1)
->>>>>>> 87a300dd3a90c71df7b63ca4b00d8b2128c518a0
 score = model.evaluate(x_test, y_test, verbose=0)
 
 
