@@ -7,7 +7,12 @@ epoch_counter = 0
 files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
          'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
          'adam optimizer.txt',
-         '0.001_adam_20epochs.txt'
+         '0.001_adam_20epochs.txt',
+         'Adam_Tanh_WeightsNormalInitialization.txt',
+         'Tanh_Adam_NoIniti.txt',
+         
+
+
          ]
 
 
