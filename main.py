@@ -1,12 +1,13 @@
 from __future__ import print_function
 import keras
 from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
+from keras.models import Sequential, load_model
+from keras.layers import Dense, Dropout, Flatten, BatchNormalization
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 from data_handler import Data, plot_acc, plot_tt_acc
 from keras.regularizers import l2
+
 batch_size = 128
 num_classes = 11
 epochs = 20
@@ -47,6 +48,17 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 model = Sequential()
 #1
 model.add(Conv2D(32, kernel_size=(3, 3),
+<<<<<<< HEAD
+                 activation='tanh',
+                 input_shape=input_shape, kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
+model.add(BatchNormalization())
+model.add(Dropout(0.25))
+#2
+model.add(Conv2D(64, kernel_size=(3, 3),
+                 activation='tanh',
+                 input_shape=input_shape, kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
+model.add(BatchNormalization())
+=======
 
                  activation='relu',
                  input_shape=input_shape))
@@ -55,24 +67,34 @@ model.add(Dropout(0.25))
 model.add(Conv2D(64, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
+>>>>>>> d8e3c57fd2f89ce784a00dcef54d02ade397889f
 model.add(Dropout(0.25))
 
 #3
 model.add(Conv2D(128, (3, 3), activation='tanh', kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(BatchNormalization())
 model.add(Dropout(0.25))
 
 model.add(Flatten())
 model.add(Dense(128, activation='tanh', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
+model.add(BatchNormalization())
 model.add(Dropout(0.25))
 model.add(Dense(128, activation='tanh', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
+model.add(BatchNormalization())
 model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
+<<<<<<< HEAD
+              optimizer=keras.optimizers.SGD(lr=0.001),
+              metrics=['accuracy'])
+
+=======
 
               optimizer=keras.optimizers.SGD(lr=0.001),
               metrics=['accuracy'])
+>>>>>>> d8e3c57fd2f89ce784a00dcef54d02ade397889f
 
 model.fit(x_train, y_train,
           batch_size=batch_size,
@@ -80,9 +102,16 @@ model.fit(x_train, y_train,
           verbose=1,
           validation_split= 0.1)
 score = model.evaluate(x_test, y_test, verbose=0)
-
-
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
-model.save('/Users/Chiara/Desktop/Emotion_recognition_CNN/models/ChiaraModelResults123FuckYouDefaultTanh.h5')
+model.save('/Users/Chiara/Desktop/Emotion_recognition_CNN/models/Tanh_WeightNormal_Batch_L2')
+pred_y1= model.predict_classes(x_test)
+pred_y= model.predict(x_test)
+pred_y2=model.predict(y_test)
+print('True:', y_test)
+print('Predicted1:', pred_y1)
+print('Predicted:', pred_y)
+print('Predicted:', pred_y2)
+
+model.save('/Users/Chiara/Desktop/Emotion_recognition_CNN/models/Tanh_WeightNormal_Batch_L21')
 
