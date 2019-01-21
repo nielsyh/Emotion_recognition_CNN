@@ -4,15 +4,26 @@ import numpy as np
 
 epoch_counter = 0
 
-files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
-         'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
-         'adam optimizer.txt',
-         '0.001_adam_20epochs.txt',
-         'Tanh_Adam_NoIniti.txt',
-         'Adam_Tanh_WeightsNormalInitialization.txt',
-         'Tanh_Adam_Batch.txt'
-         ]
+#
+# files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
+#          'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
+#          'adam optimizer.txt',
+#          '0.001_adam_20epochs.txt'
+#          ]
 
+files = ['adam_tanh.txt',
+         'adam_tanh_GordonNormalInitialization_l2.txt',
+         'adam_tanh_GordonNormalInitialization_l2_batchNormalization.txt']
+
+#
+# files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
+#          'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
+#          'adam optimizer.txt',
+#          '0.001_adam_20epochs.txt',
+#          'Tanh_Adam_NoIniti.txt',
+#          'Adam_Tanh_WeightsNormalInitialization.txt',
+#          'Tanh_Adam_Batch.txt'
+#          ]
 
 def get_train_data(file):
 
@@ -63,7 +74,7 @@ def get_val_data(file):
     return accs, losses, times
 
 #k15, k16,
-def plot_compare(a, b, c,d, title, label_y, label_x):
+def plot_compare(a, b, c, title, label_y, label_x):
     plt.xlabel(label_x)
     plt.ylabel(label_y)
     plt.title(title)
@@ -73,7 +84,7 @@ def plot_compare(a, b, c,d, title, label_y, label_x):
     plt.plot(x,a, label='SGD lr 0.01', linestyle='-')
     plt.plot(x,b, label='SGD lr 0.001', linestyle='--')
     plt.plot(x,c, label='Adam lr 0.01', linestyle=':')
-    plt.plot(x,d, label='Adam lr 0.001', linestyle='-.')
+    #plt.plot(x,d, label='Adam lr 0.001', linestyle='-.')
 
 
     plt.legend()
@@ -113,15 +124,28 @@ def plot_test_train(a,b,a_name, b_name,title, label_y, label_x):
 acc_0, loss_0, time_0 = get_train_data(files[0])
 acc_1, loss_1, time_1 = get_train_data(files[1])
 acc_2, loss_2, time_2 = get_train_data(files[2])
-acc_3, loss_3, time_3 = get_train_data(files[3])
+#acc_3, loss_3, time_3 = get_train_data(files[3])
 
-plot_compare(acc_0,acc_1,acc_2,acc_3, 'Train Accuracy', 'Accuracy', 'epoch')
-plot_compare(loss_0,loss_1,loss_2, loss_3, 'Train Loss', 'loss', 'epoch')
+plot_compare(acc_0,acc_1,acc_2,'Train Accuracy', 'Accuracy', 'epoch')
+plot_compare(loss_0,loss_1,loss_2,  'Train Loss', 'loss', 'epoch')
 
 # #plot tst data
 acc_00, loss_00, time_00 = get_val_data(files[0])
 acc_11, loss_11, time_11 = get_val_data(files[1])
 acc_22, loss_22, time_22 = get_val_data(files[2])
+
+#acc_33, loss_33, time_33 = get_val_data(files[3])
+#
+# plot_compare(acc_00,acc_11,acc_22,acc_33, 'Test Accuracy', 'Accuracy', 'Epoch')
+# plot_compare(loss_00,loss_11,loss_22, loss_33, 'Test Loss', 'Loss', 'Epoch')
+#
+# #compare
+# plot_test_train(acc_0,acc_00, 'Train sgd lr = 0.01', 'Test sgd lr = 0.01','Train vs Test accuracy', 'Accuracy', 'Epoch')
+# plot_test_train(acc_1,acc_11, 'Train sgd lr = 0.001', 'Test sgd lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
+#
+# plot_test_train(acc_2,acc_22, 'Train Adam lr = 0.01', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
+# plot_test_train(acc_3,acc_33, 'Train Adam lr = 0.001', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
+
 acc_33, loss_33, time_33 = get_val_data(files[3])
 
 plot_compare(acc_00,acc_11,acc_22,acc_33, 'Test Accuracy', 'Accuracy', 'Epoch')
@@ -132,7 +156,7 @@ plot_test_train(acc_0,acc_00, 'Train sgd lr = 0.01', 'Test sgd lr = 0.01','Train
 plot_test_train(acc_1,acc_11, 'Train sgd lr = 0.001', 'Test sgd lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
 
 plot_test_train(acc_2,acc_22, 'Train Adam lr = 0.01', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
-plot_test_train(acc_3,acc_33, 'Train Adam lr = 0.001', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
+#plot_test_train(acc_3,acc_33, 'Train Adam lr = 0.001', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
 
 
 acc_4, loss_4, time_4 = get_train_data(files[4])
@@ -145,3 +169,4 @@ acc_66, loss_66, time_55 = get_val_data(files[6])
 
 plot_compare_for_chiara(acc_4,acc_5,acc_6, 'Train Accuracy' , 'Accuracy', 'Epochs')
 plot_compare_for_chiara(acc_44,acc_55,acc_66, 'Test Accuracy' , 'Accuracy', 'Epochs')
+

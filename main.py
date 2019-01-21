@@ -7,6 +7,7 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 from data_handler import Data, plot_acc, plot_tt_acc
 from keras.regularizers import l2
+import matplotlib.pyplot as plt
 
 batch_size = 128
 num_classes = 11
@@ -18,8 +19,11 @@ img_rows, img_cols = 50, 50
 
 
 data = Data(41904)
+
 x_train, y_train = data.sample_train()
 x_test, y_test = data.sample_train()
+class_names = ['Neutral', 'Happiness', 'Sadness', 'Surprise', 'Fear', 'Disgust', 'Anger', 'Contempt', 'None', 'Uncertain', 'No-Face']
+
 
 
 if K.image_data_format() == 'channels_first':
@@ -45,6 +49,7 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 
 model = Sequential()
 #1
+
 model.add(Conv2D(32, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
@@ -53,6 +58,7 @@ model.add(Dropout(0.25))
 model.add(Conv2D(64, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
+
 model.add(Dropout(0.25))
 
 #3
@@ -71,7 +77,7 @@ model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.SGD(lr=0.001),
+              optimizer=keras.optimizers.adam(),
               metrics=['accuracy'])
 
 model.fit(x_train, y_train,
@@ -82,14 +88,5 @@ model.fit(x_train, y_train,
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
-model.save('/Users/Chiara/Desktop/Emotion_recognition_CNN/models/Tanh_WeightNormal_Batch_L2')
-pred_y1= model.predict_classes(x_test)
-pred_y= model.predict(x_test)
-pred_y2=model.predict(y_test)
-print('True:', y_test)
-print('Predicted1:', pred_y1)
-print('Predicted:', pred_y)
-print('Predicted:', pred_y2)
-
-model.save('/Users/Chiara/Desktop/Emotion_recognition_CNN/models/Tanh_WeightNormal_Batch_L21')
+#model.save('/Users/Chiara/Desktop/Emotion_recognition_CNN/models/Tanh_WeightNormal_Batch_L21')
 
