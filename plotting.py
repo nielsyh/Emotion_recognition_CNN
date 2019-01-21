@@ -109,6 +109,7 @@ acc_2, loss_2, time_2 = get_train_data(files[2])
 plot_compare(acc_0,acc_1,acc_2,'Train Accuracy', 'Accuracy', 'epoch')
 plot_compare(loss_0,loss_1,loss_2,  'Train Loss', 'loss', 'epoch')
 
+# #plot tst data
 acc_00, loss_00, time_00 = get_val_data(files[0])
 acc_11, loss_11, time_11 = get_val_data(files[1])
 acc_22, loss_22, time_22 = get_val_data(files[2])
