@@ -133,7 +133,7 @@ plot_compare(loss_0,loss_1,loss_2,  'Train Loss', 'loss', 'epoch')
 acc_00, loss_00, time_00 = get_val_data(files[0])
 acc_11, loss_11, time_11 = get_val_data(files[1])
 acc_22, loss_22, time_22 = get_val_data(files[2])
-<<<<<<< HEAD
+
 #acc_33, loss_33, time_33 = get_val_data(files[3])
 #
 # plot_compare(acc_00,acc_11,acc_22,acc_33, 'Test Accuracy', 'Accuracy', 'Epoch')
@@ -145,7 +145,7 @@ acc_22, loss_22, time_22 = get_val_data(files[2])
 #
 # plot_test_train(acc_2,acc_22, 'Train Adam lr = 0.01', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
 # plot_test_train(acc_3,acc_33, 'Train Adam lr = 0.001', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
-=======
+
 acc_33, loss_33, time_33 = get_val_data(files[3])
 
 plot_compare(acc_00,acc_11,acc_22,acc_33, 'Test Accuracy', 'Accuracy', 'Epoch')
