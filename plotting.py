@@ -4,6 +4,7 @@ import numpy as np
 
 epoch_counter = 0
 <<<<<<< HEAD
+
 #
 # files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
 #          'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
