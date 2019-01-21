@@ -13,17 +13,17 @@ epoch_counter = 0
 
 files = ['adam_tanh.txt',
          'adam_tanh_GordonNormalInitialization_l2.txt',
-         'adam_tanh_GordonNormalInitialization_l2_batchNormalization.txt',
+         'adam_tanh_GordonNormalInitialization_l2_batchNormalization.txt']
 
-
-files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
-         'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
-         'adam optimizer.txt',
-         '0.001_adam_20epochs.txt',
-         'Tanh_Adam_NoIniti.txt',
-         'Adam_Tanh_WeightsNormalInitialization.txt',
-         'Tanh_Adam_Batch.txt'
-         ]
+#
+# files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
+#          'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
+#          'adam optimizer.txt',
+#          '0.001_adam_20epochs.txt',
+#          'Tanh_Adam_NoIniti.txt',
+#          'Adam_Tanh_WeightsNormalInitialization.txt',
+#          'Tanh_Adam_Batch.txt'
+#          ]
 
 def get_train_data(file):
 
@@ -156,7 +156,7 @@ plot_test_train(acc_0,acc_00, 'Train sgd lr = 0.01', 'Test sgd lr = 0.01','Train
 plot_test_train(acc_1,acc_11, 'Train sgd lr = 0.001', 'Test sgd lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
 
 plot_test_train(acc_2,acc_22, 'Train Adam lr = 0.01', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
-plot_test_train(acc_3,acc_33, 'Train Adam lr = 0.001', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
+#plot_test_train(acc_3,acc_33, 'Train Adam lr = 0.001', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
 
 
 acc_4, loss_4, time_4 = get_train_data(files[4])
