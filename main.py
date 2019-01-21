@@ -21,7 +21,7 @@ img_rows, img_cols = 50, 50
 data = Data(41904)
 
 x_train, y_train = data.sample_train()
-x_test, y_test = data.sample_train()
+x_test, y_test = data.sample_test()
 class_names = ['Neutral', 'Happiness', 'Sadness', 'Surprise', 'Fear', 'Disgust', 'Anger', 'Contempt', 'None', 'Uncertain', 'No-Face']
 
 
