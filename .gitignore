@@ -118,6 +118,8 @@ dmypy.json
 resized.zip
 resized/
 small/
+images/
+data/
 automatically_annotated.csv
 numpy_data_matrix
 MNIST_data/
@@ -126,10 +128,9 @@ formatted.csv
 *.csv
  .idea/workspace.xml
 .idea/
-testx.npy
-testy.npy
-trainx.npy
-trainy.npy
+x.npy
+y.npy
+all_labels.csv
 
 # Mac related files
 .DS_Store

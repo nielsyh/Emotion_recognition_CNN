@@ -18,10 +18,8 @@ img_rows, img_cols = 50, 50
 
 
 data = Data(41904)
-x_train = data.train_x #mnist.train.images
-x_test = data.test_x #mnist.test.images
-y_train = data.train_y #mnist.train.labels
-y_test = data.test_y #mnist.test.labels
+x_train, y_train = data.sample_train()
+x_test, y_test = data.sample_train()
 
 
 if K.image_data_format() == 'channels_first':
@@ -48,18 +46,6 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 model = Sequential()
 #1
 model.add(Conv2D(32, kernel_size=(3, 3),
-<<<<<<< HEAD
-                 activation='tanh',
-                 input_shape=input_shape, kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
-model.add(BatchNormalization())
-model.add(Dropout(0.25))
-#2
-model.add(Conv2D(64, kernel_size=(3, 3),
-                 activation='tanh',
-                 input_shape=input_shape, kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
-model.add(BatchNormalization())
-=======
-
                  activation='relu',
                  input_shape=input_shape))
 model.add(Dropout(0.25))
@@ -67,7 +53,6 @@ model.add(Dropout(0.25))
 model.add(Conv2D(64, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
->>>>>>> d8e3c57fd2f89ce784a00dcef54d02ade397889f
 model.add(Dropout(0.25))
 
 #3
@@ -86,15 +71,8 @@ model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
-<<<<<<< HEAD
               optimizer=keras.optimizers.SGD(lr=0.001),
               metrics=['accuracy'])
-
-=======
-
-              optimizer=keras.optimizers.SGD(lr=0.001),
-              metrics=['accuracy'])
->>>>>>> d8e3c57fd2f89ce784a00dcef54d02ade397889f
 
 model.fit(x_train, y_train,
           batch_size=batch_size,

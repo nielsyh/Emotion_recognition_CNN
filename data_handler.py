@@ -27,56 +27,56 @@ def plot_tt_acc(train_loss, train_accuracy,test_accuracy):
 class Data():
 
 
-    def __init__(self, num_pictures):
+    def __init__(self, num_pictures, use_local_matrix = True):
         print("init data..")
+        total_pics = num_pictures * 11
 
-        #41904 images -> label, 40000 pixel values
-        self.dict = self.read_data("formatted.csv")
-        print("length dict: " + str(len(self.dict)))
-        self.total_images = int(len(self.dict))
+        self.data_size = num_pictures
 
-        #self.train_x = np.empty((self.num_train(), 40000))
 
-        self.train_x = np.ndarray(shape=(self.num_train(), 1, 50, 50),
-                             dtype=np.float32)
-        self.test_x = np.ndarray(shape=(self.num_test(), 1, 50, 50),
-                             dtype=np.float32)
 
-        self.train_y = np.empty((self.num_train(),1))
+        self.x = np.ndarray(shape=(45725, 1, 50, 50), dtype=np.float32)
+        self.y = np.empty((45725, 1))
 
-        self.test_y = np.empty((self.num_test(), 1))
+        if(use_local_matrix):
+            print('Loading local files')
 
-        exists1 = os.path.isfile('trainx.npy')
-        exists2 = os.path.isfile('trainy.npy')
-        exists3 = os.path.isfile('testy.npy')
-        exists4 = os.path.isfile('testy.npy')
-        if(exists1 and exists2 and exists3 and exists4):
-            print('load data from last time..')
-            self.train_x = np.load('trainx.npy')
-            self.test_x = np.load('testx.npy')
-            self.train_y = np.load('trainy.npy')
-            self.test_y = np.load('testy.npy')
+            self.x = np.load('x.npy')
+            self.y = np.load('y.npy')
+
         else:
-            # separates all data into train(x,y) and test(x,y) sets
-            index = 0
-            for image_name,label in self.dict.items():
-                if (index == self.num_train() + self.num_test()):
-                    break
-                path = 'small/' + image_name
+            print('Parsing new data..')
 
-                if(index < self.num_train()):
-                    self.train_x[index] = self.get_pixels(path)
-                    self.train_y[index] = label
+            self.dict = self.read_data("all_labels.csv")
+            print("length dict: " + str(len(self.dict)))
+            self.total_images = int(len(self.dict))
+
+            values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+            index = 0
+            processed = 0
+            for image_name, label in self.dict.items():
+                processed = processed + 1
+                if(index%10000 == 0):
+                    print('Images processed: ' + str(processed))
+                if(values[int(label)] >= num_pictures or index == total_pics):
+                    continue
                 else:
-                    self.test_x[index - self.num_train()] = self.get_pixels(path)
-                    self.test_y[index - self.num_train()] = label
-                index = index + 1
+                    path = 'images/' + image_name
+                    self.x[index] = self.get_pixels(path)
+                    self.y[index] = label
+                    index = index + 1
+                    values[int(label)] = values[int(label)] + 1
+
+
+            print('Index: ' + str(index))
+            print('Distribution: ')
+            print(values)
 
             print('saving data for next time')
-            np.save('trainx.npy', self.train_x)
-            np.save('trainy.npy', self.train_y)
-            np.save('testx.npy', self.test_x)
-            np.save('testy.npy', self.test_y)
+            np.save('x.npy', self.x)
+            np.save('y.npy', self.y)
+
 
         print("init data done..")
 
@@ -88,7 +88,7 @@ class Data():
             for line in infile:
                 temp = line.rstrip('\r\n').split(',')
                 file = temp[0]
-                path = 'small/' + file
+                path = 'images/' + file
                 exists = os.path.isfile(path)
                 if(exists):
                     if (temp[6] == 'expression'):
@@ -106,11 +106,11 @@ class Data():
         #two dimensional array to array. because Im to lazy to google if i add an array to an array in numpy..
         return arr
 
-    def num_train(self):
-        # first 90% is training
-        return round(self.total_images * 0.9)
-        # return 15000
-        # return 10000
+    # def num_train(self):
+    #     # first 90% is training
+    #     return round(self.total_images * 0.9)
+    #     # return 15000
+    #     # return 10000
 
 
     def num_test(self):
@@ -119,14 +119,47 @@ class Data():
         # return 1000
         #return 100
 
-    def sample_train(self,num):
-        return self.train_x[:num], self.train_y[:num]
+    def slice_data(self, train_x, train_y, test_x, test_y):
+        values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        new_x = np.ndarray(shape=(55000, 1, 50, 50), dtype=np.float32)
+        new_y = np.empty((55000,1))
 
-    def sample_test(self,num):
-        return self.test_x[:num], self.test_y[:num]
-#
-# a = Data(41904)
-# print(a.test_x[:10])
-# print(a.test_y[:10])
-# print(a.train_x.shape)
-# print("done")
+        index = 0
+
+        for i, y in enumerate(a.train_y):
+            if(values[int(y)] > 5000):
+                continue
+            else:
+                values[int(y)] = values[int(y)] + 1
+                new_x[i] = train_x[i]
+                new_y[i] = train_y[i]
+                index = index + 1
+
+        for i, y in enumerate(a.test_y):
+            if(values[int(y)] > 5000):
+                continue
+            else:
+                values[int(y)] = values[int(y)] + 1
+                new_x[i] = test_x[i]
+                new_y[i] = test_y[i]
+                index = index + 1
+
+        print('Total index: ' + str(index))
+        print('Distribution: ')
+        print(values)
+        return new_x, new_y
+
+    def num_train(self):
+        return round(0.9 * self.data_size)
+
+    def num_test(self):
+        return round(0.1 * self.data_size)
+
+    def sample_train(self):
+        return self.x[:self.num_train()], self.y[:self.num_train()]
+
+    def sample_test(self):
+        return self.x[-1*(self.num_test()):], self.y[-1*(self.num_test()):]
+
+# a = Data(5000, use_local_matrix=True)
+# x,y = a.slice_data(a.train_x, a.train_y, a.test_x, a.train_y)
