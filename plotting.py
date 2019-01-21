@@ -3,6 +3,7 @@ import numpy as np
 
 
 epoch_counter = 0
+<<<<<<< HEAD
 #
 # files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
 #          'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
@@ -13,6 +14,9 @@ epoch_counter = 0
 files = ['adam_tanh.txt',
          'adam_tanh_GordonNormalInitialization_l2.txt',
          'adam_tanh_GordonNormalInitialization_l2_batchNormalization.txt',
+=======
+
+>>>>>>> 36816f0b42fff2503cdf0478835f4215139cbeef
          ]
 
 def get_train_data(file):
@@ -104,10 +108,10 @@ acc_2, loss_2, time_2 = get_train_data(files[2])
 plot_compare(acc_0,acc_1,acc_2,'Train Accuracy', 'Accuracy', 'epoch')
 plot_compare(loss_0,loss_1,loss_2,  'Train Loss', 'loss', 'epoch')
 
-#plot tst data
 acc_00, loss_00, time_00 = get_val_data(files[0])
 acc_11, loss_11, time_11 = get_val_data(files[1])
 acc_22, loss_22, time_22 = get_val_data(files[2])
+<<<<<<< HEAD
 #acc_33, loss_33, time_33 = get_val_data(files[3])
 #
 # plot_compare(acc_00,acc_11,acc_22,acc_33, 'Test Accuracy', 'Accuracy', 'Epoch')
@@ -119,3 +123,5 @@ acc_22, loss_22, time_22 = get_val_data(files[2])
 #
 # plot_test_train(acc_2,acc_22, 'Train Adam lr = 0.01', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
 # plot_test_train(acc_3,acc_33, 'Train Adam lr = 0.001', 'Test Adam lr = 0.001','Train vs Test accuracy', 'Accuracy', 'Epoch')
+=======
+>>>>>>> 36816f0b42fff2503cdf0478835f4215139cbeef
