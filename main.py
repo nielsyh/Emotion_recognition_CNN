@@ -16,8 +16,6 @@ epochs = 20
 # input image dimensions
 img_rows, img_cols = 50, 50
 
-
-
 data = Data(41904)
 
 x_train, y_train = data.sample_train()
@@ -62,22 +60,20 @@ model.add(Conv2D(64, kernel_size=(3, 3),
 model.add(Dropout(0.25))
 
 #3
-model.add(Conv2D(128, (3, 3), activation='tanh', kernel_initializer='glorot_normal',kernel_regularizer=l2(0.01)))
+model.add(Conv2D(128, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(BatchNormalization())
 model.add(Dropout(0.25))
 
 model.add(Flatten())
-model.add(Dense(128, activation='tanh', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
-model.add(BatchNormalization())
+model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.25))
-model.add(Dense(128, activation='tanh', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
-model.add(BatchNormalization())
+model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.25))
-model.add(Dense(num_classes, activation='softmax', kernel_initializer='glorot_normal', kernel_regularizer=l2(0.01)))
+model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.adam(),
+              optimizer=keras.optimizers.adam(lr = 0.001),
               metrics=['accuracy'])
 
 model.fit(x_train, y_train,

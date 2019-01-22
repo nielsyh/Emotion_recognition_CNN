@@ -35,6 +35,7 @@ class Data():
 
 
 
+
         self.x = np.ndarray(shape=(45725, 1, 50, 50), dtype=np.float32)
         self.y = np.empty((45725, 1))
 
@@ -77,7 +78,7 @@ class Data():
             np.save('x.npy', self.x)
             np.save('y.npy', self.y)
 
-
+        self.indexes = np.random.choice(np.arange(len(self.x)), self.num_test())
         print("init data done..")
 
 #removes unexisting pictures
@@ -156,10 +157,15 @@ class Data():
         return round(0.1 * self.data_size)
 
     def sample_train(self):
-        return self.x[:self.num_train()], self.y[:self.num_train()]
-
+        # return self.x[:self.num_train()], self.y[:self.num_train()]
+        return np.delete(self.x, self.indexes, axis = 1), np.delete(self.y, self.indexes, axis = 1)
+        # return self.x[-self.indexes], self.y[-self.indexes]
+    #
     def sample_test(self):
-        return self.x[-1*(self.num_test()):], self.y[-1*(self.num_test()):]
+        # return self.x[-1*(self.num_test()):], self.y[-1*(self.num_test()):]
+
+        return self.x[self.indexes], self.y[self.indexes]
 
 # a = Data(5000, use_local_matrix=True)
-# x,y = a.slice_data(a.train_x, a.train_y, a.test_x, a.train_y)
+# x,y = a.sample_train()
+# a,b= a.sample_test()
