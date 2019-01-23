@@ -16,7 +16,7 @@ epochs = 20
 # input image dimensions
 img_rows, img_cols = 50, 50
 
-data = Data(41904)
+data = Data(7000, False)
 
 x_train, y_train = data.sample_train()
 x_test, y_test = data.sample_test()

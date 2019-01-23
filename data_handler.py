@@ -2,6 +2,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import cv2
 
 
 def plot_acc(train_loss, test_loss):
@@ -29,15 +30,15 @@ class Data():
 
     def __init__(self, num_pictures, use_local_matrix = True):
         print("init data..")
-        total_pics = num_pictures * 11
+        total_pics = 76199
 
-        self.data_size = num_pictures
-
-
+        self.data_size = 76199
 
 
-        self.x = np.ndarray(shape=(45725, 1, 50, 50), dtype=np.float32)
-        self.y = np.empty((45725, 1))
+
+
+        self.x = np.ndarray(shape=(total_pics, 1, 50, 50), dtype=np.float32)
+        self.y = np.empty((total_pics, 1))
 
         if(use_local_matrix):
             print('Loading local files')
@@ -48,7 +49,7 @@ class Data():
         else:
             print('Parsing new data..')
 
-            self.dict = self.read_data("all_labels.csv")
+            self.dict = self.read_data("training_with_mirror.csv")
             print("length dict: " + str(len(self.dict)))
             self.total_images = int(len(self.dict))
 
@@ -58,12 +59,13 @@ class Data():
             processed = 0
             for image_name, label in self.dict.items():
                 processed = processed + 1
+
                 if(index%10000 == 0):
                     print('Images processed: ' + str(processed))
                 if(values[int(label)] >= num_pictures or index == total_pics):
                     continue
                 else:
-                    path = 'images/' + image_name
+                    path = 'manual_small_mirror_7000each/' + image_name
                     self.x[index] = self.get_pixels(path)
                     self.y[index] = label
                     index = index + 1
@@ -88,14 +90,15 @@ class Data():
 
             for line in infile:
                 temp = line.rstrip('\r\n').split(',')
-                file = temp[0]
-                path = 'images/' + file
+                file = temp[1]
+                # print(file)
+                path = 'manual_small_mirror_7000each/' + file
                 exists = os.path.isfile(path)
                 if(exists):
-                    if (temp[6] == 'expression'):
+                    if (temp[7] == 'expression'):
                         continue
                     else:
-                        names_to_labels[temp[0]] = int(temp[6])
+                        names_to_labels[temp[1]] = float(temp[7])
                 else:
                     continue
 
@@ -105,7 +108,12 @@ class Data():
         img = Image.open(path)
         arr = np.asarray(img)
         #two dimensional array to array. because Im to lazy to google if i add an array to an array in numpy..
-        return arr
+        if(arr.shape == (50,50)):
+            return arr
+        else:
+            new_img = cv2.imread(path)
+            new_img = cv2.cvtColor(new_img, cv2.COLOR_BGR2GRAY)
+            return np.asarray(new_img)
 
     # def num_train(self):
     #     # first 90% is training
@@ -127,7 +135,7 @@ class Data():
 
         index = 0
 
-        for i, y in enumerate(a.train_y):
+        for i, y in enumerate(self.train_y):
             if(values[int(y)] > 5000):
                 continue
             else:
@@ -136,7 +144,7 @@ class Data():
                 new_y[i] = train_y[i]
                 index = index + 1
 
-        for i, y in enumerate(a.test_y):
+        for i, y in enumerate(self.test_y):
             if(values[int(y)] > 5000):
                 continue
             else:
@@ -166,6 +174,6 @@ class Data():
 
         return self.x[self.indexes], self.y[self.indexes]
 
-# a = Data(5000, use_local_matrix=True)
+# a = Data(7000, use_local_matrix=False)
 # x,y = a.sample_train()
 # a,b= a.sample_test()

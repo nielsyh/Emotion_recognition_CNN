@@ -131,6 +131,9 @@ formatted.csv
 x.npy
 y.npy
 all_labels.csv
+manual_small_mirror_7000each/
+training_with_mirror.csv
+
 
 # Mac related files
 .DS_Store
