@@ -26,16 +26,11 @@ def plot_tt_acc(train_loss, train_accuracy,test_accuracy):
     plt.show()
 
 class Data():
-
-
     def __init__(self, num_pictures, use_local_matrix = True):
         print("init data..")
         total_pics = 76199
 
         self.data_size = 76199
-
-
-
 
         self.x = np.ndarray(shape=(total_pics, 1, 50, 50), dtype=np.float32)
         self.y = np.empty((total_pics, 1))
@@ -83,7 +78,7 @@ class Data():
         self.indexes = np.random.choice(np.arange(len(self.x)), self.num_test())
         print("init data done..")
 
-#removes unexisting pictures
+    #removes unexisting pictures
     def read_data(self, filepath):
         names_to_labels = dict()
         with open(filepath) as infile:
