@@ -16,7 +16,7 @@ epochs = 20
 # input image dimensions
 img_rows, img_cols = 50, 50
 
-data = Data(7000, False)
+data = Data(7000, True)
 
 x_train, y_train = data.sample_train()
 x_test, y_test = data.sample_test()
@@ -48,21 +48,17 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 model = Sequential()
 #1
 
-model.add(Conv2D(32, kernel_size=(3, 3),
-                 activation='relu',
-                 input_shape=input_shape))
-model.add(Dropout(0.25))
-#2
 model.add(Conv2D(64, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
-
-model.add(Dropout(0.25))
+#2
+model.add(Conv2D(128, kernel_size=(3, 3),
+                 activation='relu',
+                 input_shape=input_shape))
 
 #3
-model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(Conv2D(256, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(BatchNormalization())
 model.add(Dropout(0.25))
 
 model.add(Flatten())
@@ -72,9 +68,11 @@ model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.25))
 model.add(Dense(num_classes, activation='softmax'))
 
-model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.adam(lr = 0.001),
-              metrics=['accuracy'])
+# model.compile(loss=keras.losses.categorical_crossentropy,
+#               optimizer=keras.optimizers.SGD(),
+#               metrics=['accuracy'])
+
+model.compile(optimizer='adam',loss='mean_squared_error', metrics=['acc'])
 
 model.fit(x_train, y_train,
           batch_size=batch_size,
@@ -84,5 +82,5 @@ model.fit(x_train, y_train,
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
-#model.save('/Users/Chiara/Desktop/Emotion_recognition_CNN/models/Tanh_WeightNormal_Batch_L21')
+model.save('sgddefault')
 

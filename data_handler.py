@@ -62,7 +62,7 @@ class Data():
 
                 if(index%10000 == 0):
                     print('Images processed: ' + str(processed))
-                if(values[int(label)] >= num_pictures or index == total_pics):
+                if(values[int(label)] >= num_picturPies or index == total_pics):
                     continue
                 else:
                     path = 'manual_small_mirror_7000each/' + image_name
