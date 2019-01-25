@@ -46,7 +46,7 @@ Available <initializer> functions as per keras:
 """
 
 from __future__ import print_function
-from docopt import docopt
+# from docopt import docopt
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential, load_model

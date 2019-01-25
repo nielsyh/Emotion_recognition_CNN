@@ -169,6 +169,6 @@ class Data():
 
         return self.x[self.indexes], self.y[self.indexes]
 
-# a = Data(7000, use_local_matrix=False)
-# x,y = a.sample_train()
-# a,b= a.sample_test()
+a = Data(7000, use_local_matrix=False)
+x,y = a.sample_train()
+a,b= a.sample_test()
