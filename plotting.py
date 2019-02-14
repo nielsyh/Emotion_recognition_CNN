@@ -5,10 +5,7 @@ import numpy as np
 epoch_counter = 0
 
 
-files = ['0.001sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
-         'sgd_20epoch_shape50_37714train_4190test_3cnn_2fc_dropout25.txt',
-         'adam optimizer.txt',
-         '0.001_adam_20epochs.txt'
+files = ['/balanced/mdel3adam.txt'
          ]
 
 
@@ -107,22 +104,22 @@ acc_00, loss_00, time_00 = get_val_data(files[0])
 
 plot_test_train(acc_0,acc_00, 'Train adam lr = 0.01', 'Test adm lr = 0.01','Train vs Test accuracy', 'Accuracy', 'Epoch')
 
-#plot train data
-acc_1, loss_1, time_1 = get_train_data(files[1])
-acc_2, loss_2, time_2 = get_train_data(files[2])
-acc_3, loss_3, time_3 = get_train_data(files[3])
-
-plot_compare(acc_0,acc_1,acc_2,'Train Accuracy', 'Accuracy', 'epoch')
-plot_compare(loss_0,loss_1,loss_2,  'Train Loss', 'loss', 'epoch')
-
-#plot tst data
-acc_11, loss_11, time_11 = get_val_data(files[1])
-acc_22, loss_22, time_22 = get_val_data(files[2])
-acc_33, loss_33, time_33 = get_val_data(files[3])
-
-
-plot_compare(acc_00,acc_11,acc_22, 'Test Accuracy', 'Accuracy', 'Epoch')
-plot_compare(loss_00,loss_11,loss_22, 'Test Loss', 'Loss', 'Epoch')
+# #plot train data
+# acc_1, loss_1, time_1 = get_train_data(files[1])
+# acc_2, loss_2, time_2 = get_train_data(files[2])
+# acc_3, loss_3, time_3 = get_train_data(files[3])
+#
+# plot_compare(acc_0,acc_1,acc_2,'Train Accuracy', 'Accuracy', 'epoch')
+# plot_compare(loss_0,loss_1,loss_2,  'Train Loss', 'loss', 'epoch')
+#
+# #plot tst data
+# acc_11, loss_11, time_11 = get_val_data(files[1])
+# acc_22, loss_22, time_22 = get_val_data(files[2])
+# acc_33, loss_33, time_33 = get_val_data(files[3])
+#
+#
+# plot_compare(acc_00,acc_11,acc_22, 'Test Accuracy', 'Accuracy', 'Epoch')
+# plot_compare(loss_00,loss_11,loss_22, 'Test Loss', 'Loss', 'Epoch')
 #
 #
 # acc_4, loss_4, time_4 = get_train_data(files[4])

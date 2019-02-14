@@ -5,26 +5,6 @@ import os
 import cv2
 
 
-def plot_acc(train_loss, test_loss):
-    plt.plot(range(len(train_loss)), train_loss, 'b', label='Training loss')
-    plt.plot(range(len(train_loss)), test_loss, 'r', label='Test loss')
-    plt.title('Training and Test loss')
-    plt.xlabel('Epochs ', fontsize=16)
-    plt.ylabel('Loss', fontsize=16)
-    plt.legend()
-    plt.figure()
-    plt.show()
-
-def plot_tt_acc(train_loss, train_accuracy,test_accuracy):
-    plt.plot(range(len(train_loss)), train_accuracy, 'b', label='Training Accuracy')
-    plt.plot(range(len(train_loss)), test_accuracy, 'r', label='Test Accuracy')
-    plt.title('Training and Test Accuracy')
-    plt.xlabel('Epochs ', fontsize=16)
-    plt.ylabel('Loss', fontsize=16)
-    plt.legend()
-    plt.figure()
-    plt.show()
-
 class Data():
     def __init__(self, num_pictures, use_local_matrix = True):
         print("init data..")
@@ -40,6 +20,8 @@ class Data():
 
             self.x = np.load('x.npy')
             self.y = np.load('y.npy')
+
+            self.x, self.y = self.remove_label()
 
         else:
             print('Parsing new data..')
@@ -57,7 +39,7 @@ class Data():
 
                 if(index%10000 == 0):
                     print('Images processed: ' + str(processed))
-                if(values[int(label)] >= num_picturPies or index == total_pics):
+                if(values[int(label)] >= num_pictures or index == total_pics):
                     continue
                 else:
                     path = 'manual_small_mirror_7000each/' + image_name
@@ -76,6 +58,7 @@ class Data():
             np.save('y.npy', self.y)
 
         self.indexes = np.random.choice(np.arange(len(self.x)), self.num_test())
+
         print("init data done..")
 
     #removes unexisting pictures
@@ -153,6 +136,18 @@ class Data():
         print(values)
         return new_x, new_y
 
+    def remove_label(self):
+        indexes = []
+        for i,y in enumerate(self.y):
+            if(y == 10 or y == 9 or y ==8):
+                indexes.append(i)
+
+        print('deleted: ')
+        print(len(indexes))
+        print(len(self.x))
+        print(len(self.y))
+        return np.delete(self.x, indexes, axis=0), np.delete(self.y, indexes)
+
     def num_train(self):
         return round(0.9 * self.data_size)
 
@@ -161,7 +156,7 @@ class Data():
 
     def sample_train(self):
         # return self.x[:self.num_train()], self.y[:self.num_train()]
-        return np.delete(self.x, self.indexes, axis = 1), np.delete(self.y, self.indexes, axis = 1)
+        return np.delete(self.x, self.indexes, axis = 0), np.delete(self.y, self.indexes)
         # return self.x[-self.indexes], self.y[-self.indexes]
     #
     def sample_test(self):
@@ -169,6 +164,7 @@ class Data():
 
         return self.x[self.indexes], self.y[self.indexes]
 
-a = Data(7000, use_local_matrix=False)
-x,y = a.sample_train()
-a,b= a.sample_test()
+# a = Data(7000, use_local_matrix=True)
+#
+# print(len(a.x))
+# print(len(a.y))
